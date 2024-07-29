@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container form-container mt-5">
+    <br>
+    <h3>Active Employees</h3>
+    <div>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Department</th>
+                    <th>Department manager</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    {% if user.is_active %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'users-update' user.pk %}">Edit</a> 
+                                <a href="{% url 'users-delete' user.pk %}">Delete</a>
+                                <br>
+                                {{ user.last_name }} {{ user.first_name }}
+                            </td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.department.name }}</td>
+                            <td>{% if user.department.manager %} {{ user.department.manager }} {% else %} {% endif %}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <h3>Inactive Employees</h3>
+    <div>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Department</th>
+                    <th>Department manager</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if inactive_users %}
+                    {% for user in inactive_users %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'users-update' user.pk %}">Edit</a>
+                                <a href="{% url 'users-delete' user.pk %}">Delete</a>
+                                <br>
+                                {{ user.last_name }} {{ user.first_name }}
+                            </td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.department.name }}</td>
+                            <td>
+                                {% if user.department.manager %}
+                                    {{ user.department.manager.last_name }} {{ user.department.manager.first_name }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center">No inactive employees to display.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+    <br>
+<h3>Departments</h3>
+<div>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Manager</th>
+                <th>Parent department</th>
+                <th>Employees</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if departments %}
+                {% for department in departments %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'departments-update' department.pk %}">Edit</a>
+                            <a href="{% url 'departments-delete' department.pk %}">Delete</a>
+                            <span class="toggle-text" data-department-id="{{ department.pk }}" style="cursor: pointer; color: blue;">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                            </span>
+                            <br>
+                            {{ department.name }}
+                        </td>
+                        <td>
+                            {% if department.manager %}
+                                {{ department.manager }}
+                            {% else %}
+                                No manager
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if department.parent %}
+                                {{ department.parent.name }}
+                            {% else %}
+                                No parent
+                            {% endif %}
+                        </td>
+                        <td class="employee-list" id="employees-department-{{ department.pk }}" style="display: none;">
+                            {% if department.customuser_set.all %}
+                                <ul class="list-unstyled">
+                                    {% for user in department.customuser_set.all %}
+                                        {% if user.is_active %}
+                                            <li>{{ user.last_name }} {{ user.first_name }}</li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                            {% if department.manager and department.manager not in department.customuser_set.all %}
+                                {{ department.manager }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="4" class="text-center">No departments to display.</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+
+</div>
+{% endblock content %}
