@@ -156,7 +156,7 @@ class UserListByDepartmentOrmView(generics.ListAPIView):
         # Filter users by department_id
         queryset = UserModel.objects.filter(department_id=department_id)
 
-        SpeedTest.objects.create(source='DEPT-BY-USER-ORM', speed=time.perf_counter()-start_time)
+        SpeedTest.objects.create(source='USER-BY-DEPT-ORM', speed=time.perf_counter()-start_time)
 
         
         # Check if any users exist for the given department_id
@@ -195,7 +195,7 @@ class UserListByDepartmentProcView(generics.ListAPIView):
             rows = cursor.fetchall()
 
         # Measure and log the speed of the query
-        SpeedTest.objects.create(source='DEPT-BY-USER-PROC', speed=time.perf_counter() - start_time)
+        SpeedTest.objects.create(source='USER-BY-DEPT-PROC', speed=time.perf_counter() - start_time)
 
         # Ensure we have at least one user, otherwise raise an error
         if not rows:
