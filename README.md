@@ -7,7 +7,7 @@ Employees management system designed to streamline HR processes and enhance orga
 Before commencing the setup, ensure you have the following prerequisites in place:
 
 * **MySQL Server:** A functional MySQL server instance.
-* **Python 3.10.12:** Python version 3.10.12 installed on your system.
+* **Python 3.10.12:** Python version >= 3.10.12 installed on your system.
 
 ## Installation
 
