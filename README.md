@@ -59,9 +59,26 @@ Install the required packages from the requirements.txt file:
 `pip install -r requirements.txt`
 
 
+***Add enviroment file***
+
+Create the .env file at the root of the project and add the following content to the .env file:
+
+`SECRET_KEY='django-insecure-yp9_l29@sc_mwe0&^i!lxdt+nrje#&m#8(73q_&ll$bn5jim%cwwqdJFDH&^$%#ewdq#@32424fwedrw'`
+
+`DB_NAME='netopia_django'`
+
+`DB_USER='your_username'`
+
+`DB_PASSWORD='your_password'`
+
+`DB_HOST='localhost'`
+
+`DB_PORT=3306`
+
+
 ***Start the Development Server***
 
-Run the following command to start the development server:
+Run the following command at the root of the project to start the development server:
 
 `python manage.py runserver 0.0.0.0:8000`
 
