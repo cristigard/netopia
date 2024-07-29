@@ -1,6 +1,6 @@
 # Netopia - Employees Management
 
-Netopia is an employee management system designed to streamline HR processes and enhance organizational efficiency. This README provides comprehensive instructions for setting up the project environment, installing dependencies, and importing the necessary database.
+Employees management system designed to streamline HR processes and enhance organizational efficiency. This README provides comprehensive instructions for setting up the project environment, installing dependencies, and importing the necessary database.
 
 ## Prerequisites
 
